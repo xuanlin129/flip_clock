@@ -21,6 +21,7 @@
 
     body {
       background: var(--light-color);
+      color: var(--dark-color);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -29,25 +30,18 @@
       font-weight: 400;
       font-style: normal;
       transition: all 1s;
+      flex-direction: column;
     }
 
-    .timer {
-      width: 200px;
-      height: 180px;
-      border-radius: 1rem;
-      perspective: 600px;
-      box-shadow:
-        0 0.125em 0.3125em rgba(0, 0, 0, 0.25),
-        0 0.02125em 0.06125em rgba(0, 0, 0, 0.25);
-      position: relative;
-      background: linear-gradient(var(--dark-color) 48%, var(--light-color) 49%, var(--light-color) 51%, var(--dark-color) 52%);
+    #date {
+      width: 100%;
+      text-align: center;
+      margin-bottom: 1rem;
+      font-size: 48px;
+    }
+
+    #timer {
       display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 80px;
-      color: var(--light-color);
-      margin: 0 10px;
-      text-shadow: 0 0 10px var(--dark-color);
     }
 
     #themebox {
@@ -211,23 +205,26 @@
 </head>
 
 <body>
-  <div id="hour" class="box">
-    <div class="inner newtop"></div>
-    <div class="inner oldtop"></div>
-    <div class="inner newbottom"></div>
-    <div class="inner oldbottom"></div>
-  </div>
-  <div id="minute" class="box">
-    <div class="inner newtop"></div>
-    <div class="inner oldtop"></div>
-    <div class="inner newbottom"></div>
-    <div class="inner oldbottom"></div>
-  </div>
-  <div id="second" class="box">
-    <div class="inner newtop"></div>
-    <div class="inner oldtop"></div>
-    <div class="inner newbottom"></div>
-    <div class="inner oldbottom"></div>
+  <div id="date"></div>
+  <div id="timer">
+    <div id="hour" class="box">
+      <div class="inner newtop"></div>
+      <div class="inner oldtop"></div>
+      <div class="inner newbottom"></div>
+      <div class="inner oldbottom"></div>
+    </div>
+    <div id="minute" class="box">
+      <div class="inner newtop"></div>
+      <div class="inner oldtop"></div>
+      <div class="inner newbottom"></div>
+      <div class="inner oldbottom"></div>
+    </div>
+    <div id="second" class="box">
+      <div class="inner newtop"></div>
+      <div class="inner oldtop"></div>
+      <div class="inner newbottom"></div>
+      <div class="inner oldbottom"></div>
+    </div>
   </div>
 
   <div id="themebox">
@@ -240,6 +237,7 @@
   </div>
 
   <script>
+    const today = document.querySelector('#date')
     const hour = document.querySelector('#hour')
     const minute = document.querySelector('#minute')
     const second = document.querySelector('#second')
@@ -248,14 +246,8 @@
     const minuteClear = (60 - date.getSeconds() - 1) * 1000
 
     const clock = () => {
-      setTimeout(() => {
-        second.querySelector('.newtop').innerText = String(date.getSeconds() + 1).padStart(2, "0")
-      }, 100)
-
-      setTimeout(() => {
-        second.querySelector('.oldbottom').innerText = String((date.getSeconds() + 1) % 60).padStart(2, "0")
-      }, 900)
       const date = new Date()
+      today.innerText = `${date.getFullYear()}/${String(date.getMonth() + 1).padStart(2, "0")}/${String(date.getDate()).padStart(2, "0")}`
       hour.querySelector('.newtop').innerText = String((date.getHours() + 1) % 24).padStart(2, "0")
       hour.querySelector('.newbottom').innerText = String((date.getHours() + 1) % 24).padStart(2, "0")
       hour.querySelector('.oldbottom').innerText = String(date.getHours()).padStart(2, "0")
@@ -270,22 +262,30 @@
       second.querySelector('.newbottom').innerText = String((date.getSeconds() + 1) % 60).padStart(2, "0")
       second.querySelector('.oldbottom').innerText = String(date.getSeconds()).padStart(2, "0")
       second.querySelector('.oldtop').innerText = String(date.getSeconds()).padStart(2, "0")
-    }
 
+      setTimeout(() => {
+        second.querySelector('.newtop').innerText = String(date.getSeconds() + 1).padStart(2, "0")
+      }, 100)
+
+      setTimeout(() => {
+        second.querySelector('.oldbottom').innerText = String((date.getSeconds() + 1) % 60).padStart(2, "0")
+      }, 900)
+    }
+    clock()
     setInterval(clock, 1000)
 
     // 動畫時間校正
     const hourAnim = () => {
-      hour.querySelector('.oldtop').style.animation = 'oldrotate 1s infinite ease-in-out'
-      hour.querySelector('.newbottom').style.animation = 'newrotate 1s infinite ease-in-out'
+      hour.querySelector('.oldtop').style.animation = 'oldrotate 1s linear infinite'
+      hour.querySelector('.newbottom').style.animation = 'newrotate 1s linear infinite'
       setTimeout(() => {
         hour.querySelector('.oldtop').style.animation = 'none'
         hour.querySelector('.newbottom').style.animation = 'none'
       }, 1000)
     }
     const minuteAnim = () => {
-      minute.querySelector('.oldtop').style.animation = 'oldrotate 1s infinite ease-in-out'
-      minute.querySelector('.newbottom').style.animation = 'newrotate 1s infinite ease-in-out'
+      minute.querySelector('.oldtop').style.animation = 'oldrotate 1s linear infinite'
+      minute.querySelector('.newbottom').style.animation = 'newrotate 1s linear infinite'
       setTimeout(() => {
         minute.querySelector('.oldtop').style.animation = 'none'
         minute.querySelector('.newbottom').style.animation = 'none'
