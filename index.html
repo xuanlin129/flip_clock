@@ -144,7 +144,6 @@
 
     .oldtop {
       top: 0;
-      z-index: 3;
       transform-origin: bottom center;
     }
 
@@ -152,57 +151,60 @@
       bottom: 0;
       transform: rotateX(-180deg);
       transform-origin: top center;
-      opacity: 0;
-
+      z-index: -999;
     }
 
     #second .oldtop {
       animation: oldrotate 1s linear infinite;
+      perspective: 800px;
     }
 
     #second .newbottom {
       animation: newrotate 1s linear infinite;
+      perspective: 800px;
     }
 
     @keyframes oldrotate {
       0% {
         transform: rotateX(0);
+        opacity: 1;
       }
 
       50% {
         transform: rotateX(90deg) skewX(15deg);
         opacity: 1;
+        z-index: 999;
       }
 
       51% {
         opacity: 0;
+        z-index: -999;
       }
 
       100% {
-        transform: rotateX(0);
+        transform: rotateX(180deg);
         opacity: 0;
-        z-index: -1;
       }
     }
 
     @keyframes newrotate {
       0% {
-        transform: rotateX(0deg);
-        opacity: 0;
+        transform: rotateX(-180deg);
+        z-index: -999;
       }
 
       50% {
-        transform: rotateX(90deg) skewX(-15deg);
-        opacity: 0;
+        transform: rotateX(-90deg) skewX(-15deg);
+        z-index: 1;
       }
 
-      51% {
-        opacity: 1;
+      99% {
+        z-index: 1;
       }
 
       100% {
+        z-index: -999;
         transform: rotateX(0deg);
-        opacity: 1;
       }
     }
   </style>
@@ -246,17 +248,25 @@
     const minuteClear = (60 - date.getSeconds() - 1) * 1000
 
     const clock = () => {
+      setTimeout(() => {
+        second.querySelector('.newtop').innerText = String(date.getSeconds() + 1).padStart(2, "0")
+      }, 100)
+
+      setTimeout(() => {
+        second.querySelector('.oldbottom').innerText = String((date.getSeconds() + 1) % 60).padStart(2, "0")
+      }, 900)
       const date = new Date()
       hour.querySelector('.newtop').innerText = String((date.getHours() + 1) % 24).padStart(2, "0")
       hour.querySelector('.newbottom').innerText = String((date.getHours() + 1) % 24).padStart(2, "0")
       hour.querySelector('.oldbottom').innerText = String(date.getHours()).padStart(2, "0")
       hour.querySelector('.oldtop').innerText = String(date.getHours()).padStart(2, "0")
+
       minute.querySelector('.newtop').innerText = String((date.getMinutes() + 1) % 60).padStart(2, "0")
       minute.querySelector('.newbottom').innerText = String((date.getMinutes() + 1) % 60).padStart(2, "0")
       minute.querySelector('.oldbottom').innerText = String(date.getMinutes()).padStart(2, "0")
       minute.querySelector('.oldtop').innerText = String(date.getMinutes()).padStart(2, "0")
 
-      second.querySelector('.newtop').innerText = String((date.getSeconds() + 1) % 60).padStart(2, "0")
+      second.querySelector('.newtop').innerText = String(date.getSeconds()).padStart(2, "0")
       second.querySelector('.newbottom').innerText = String((date.getSeconds() + 1) % 60).padStart(2, "0")
       second.querySelector('.oldbottom').innerText = String(date.getSeconds()).padStart(2, "0")
       second.querySelector('.oldtop').innerText = String(date.getSeconds()).padStart(2, "0")
