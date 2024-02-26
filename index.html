@@ -246,10 +246,6 @@
     const minuteClear = (60 - date.getSeconds() - 1) * 1000
 
     const clock = () => {
-      setTimeout(() => {
-        second.querySelector('.newtop').innerText = String((date.getSeconds() + 1) % 60).padStart(2, "0")
-        second.querySelector('.newbottom').innerText = String((date.getSeconds() + 1) % 60).padStart(2, "0")
-      }, 100)
       const date = new Date()
       hour.querySelector('.newtop').innerText = String((date.getHours() + 1) % 24).padStart(2, "0")
       hour.querySelector('.newbottom').innerText = String((date.getHours() + 1) % 24).padStart(2, "0")
@@ -260,6 +256,8 @@
       minute.querySelector('.oldbottom').innerText = String(date.getMinutes()).padStart(2, "0")
       minute.querySelector('.oldtop').innerText = String(date.getMinutes()).padStart(2, "0")
 
+      second.querySelector('.newtop').innerText = String((date.getSeconds() + 1) % 60).padStart(2, "0")
+      second.querySelector('.newbottom').innerText = String((date.getSeconds() + 1) % 60).padStart(2, "0")
       second.querySelector('.oldbottom').innerText = String(date.getSeconds()).padStart(2, "0")
       second.querySelector('.oldtop').innerText = String(date.getSeconds()).padStart(2, "0")
     }
