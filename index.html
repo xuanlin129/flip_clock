@@ -6,6 +6,40 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap" rel="stylesheet">
   <script src="https://code.iconify.design/iconify-icon/2.0.0/iconify-icon.min.js"></script>
+  <script>
+    window.onload = function () {
+      mode = document.getElementById("mode");
+
+      function dark() {
+        console.log('深色模式');
+      }
+
+      function light() {
+        console.log('淺色模式');
+      }
+
+      // 首次載入現在的模式
+      if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        dark();
+        document.body.classList.add('dark-mode')
+      } else {
+        light()
+        document.body.classList.remove('dark-mode')
+      }
+
+      // 監聽模式的變更
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+        const newColorScheme = e.matches ? "dark" : "light";
+        if (newColorScheme == "dark") {
+          dark();
+          document.body.classList.add('dark-mode')
+        } else if (newColorScheme == "light") {
+          light()
+          document.body.classList.remove('dark-mode')
+        }
+      });
+    };
+  </script>
   <title>Clock</title>
   <style>
     :root {
