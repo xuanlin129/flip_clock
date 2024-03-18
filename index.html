@@ -22,13 +22,16 @@
     body {
       background: var(--light-color);
       color: var(--dark-color);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
       font-family: "Black Ops One", system-ui;
       font-weight: 400;
       font-style: normal;
+    }
+
+    .wrap {
+      display: flex;
+      justify-content: space-evenly;
+      height: 100vh;
+      align-items: center;
       transition: all 1s;
       flex-direction: column;
     }
@@ -42,11 +45,8 @@
 
     #timer {
       display: flex;
-    }
-
-    #themebox {
-      position: absolute;
-      top: 80%;
+      width: 100%;
+      justify-content: center;
     }
 
     .dark-mode {
@@ -99,8 +99,10 @@
     }
 
     .box {
-      width: 200px;
-      height: 180px;
+      width: 30vw;
+      height: 30vw;
+      max-width: 200px;
+      max-height: 180px;
       position: relative;
       margin: 0 1rem;
       filter: drop-shadow(0 0 10px #999);
@@ -201,39 +203,53 @@
         transform: rotateX(0deg);
       }
     }
+
+    @media (max-width: 576px) {
+
+      .oldtop,
+      .newtop {
+        line-height: 30vw;
+      }
+
+      .inner {
+        font-size: 40px;
+      }
+    }
   </style>
 </head>
 
 <body>
-  <div id="date"></div>
-  <div id="timer">
-    <div id="hour" class="box">
-      <div class="inner newtop"></div>
-      <div class="inner oldtop"></div>
-      <div class="inner newbottom"></div>
-      <div class="inner oldbottom"></div>
+  <div class="wrap">
+    <div id="date"></div>
+    <div id="timer">
+      <div id="hour" class="box">
+        <div class="inner newtop"></div>
+        <div class="inner oldtop"></div>
+        <div class="inner newbottom"></div>
+        <div class="inner oldbottom"></div>
+      </div>
+      <div id="minute" class="box">
+        <div class="inner newtop"></div>
+        <div class="inner oldtop"></div>
+        <div class="inner newbottom"></div>
+        <div class="inner oldbottom"></div>
+      </div>
+      <div id="second" class="box">
+        <div class="inner newtop"></div>
+        <div class="inner oldtop"></div>
+        <div class="inner newbottom"></div>
+        <div class="inner oldbottom"></div>
+      </div>
     </div>
-    <div id="minute" class="box">
-      <div class="inner newtop"></div>
-      <div class="inner oldtop"></div>
-      <div class="inner newbottom"></div>
-      <div class="inner oldbottom"></div>
-    </div>
-    <div id="second" class="box">
-      <div class="inner newtop"></div>
-      <div class="inner oldtop"></div>
-      <div class="inner newbottom"></div>
-      <div class="inner oldbottom"></div>
-    </div>
-  </div>
 
-  <div id="themebox">
-    <input type="checkbox" name="" id="theme" class="checkbox">
-    <label for="theme" class="checkbox-label">
-      <iconify-icon icon="solar:moon-bold" class="fas fa-moon"></iconify-icon>
-      <iconify-icon icon="akar-icons:sun-fill" class="fas fa-sun"></iconify-icon>
-      <span class="ball"></span>
-    </label>
+    <div id="themebox">
+      <input type="checkbox" name="" id="theme" class="checkbox">
+      <label for="theme" class="checkbox-label">
+        <iconify-icon icon="solar:moon-bold" class="fas fa-moon"></iconify-icon>
+        <iconify-icon icon="akar-icons:sun-fill" class="fas fa-sun"></iconify-icon>
+        <span class="ball"></span>
+      </label>
+    </div>
   </div>
 
   <script>
