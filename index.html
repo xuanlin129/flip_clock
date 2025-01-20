@@ -194,6 +194,12 @@
       perspective: 800px;
     }
 
+    #themebox {
+      opacity: 0;
+      pointer-events: none;
+      visibility: hidden;
+    }
+
     @keyframes oldrotate {
       0% {
         transform: rotateX(0);
@@ -276,7 +282,7 @@
       </div>
     </div>
 
-    <div id="themebox" style="display: none">
+    <div id="themebox">
       <input type="checkbox" name="" id="theme" class="checkbox">
       <label for="theme" class="checkbox-label">
         <iconify-icon icon="solar:moon-bold" class="fas fa-moon"></iconify-icon>
